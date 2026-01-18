@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orders • SkillInheritance</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; background: #e3f2fd; padding: 2rem; margin:0; }
+h2 { text-align: center; color: #00796b; }
+.card { background: #fff; padding: 1rem; margin: 1rem auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 90%; max-width: 500px; }
+.card h3 { margin: 0; color: #00695c; }
+.card p { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<h2 id="pageTitle">Orders</h2>
+<div id="ordersContainer"></div>
+
+<script>
+const token = localStorage.getItem("token");
+const role = localStorage.getItem("role") || "guest";
+
+const pageTitle = document.getElementById("pageTitle");
+const container = document.getElementById("ordersContainer");
+
+// Determine API endpoint based on role
+const apiEndpoint = role === "seller" ? "http://localhost:5000/api/orders" : "http://localhost:5000/api/buyer-orders";
+
+// Adjust page title
+pageTitle.innerText = role === "seller" ? "📦 Orders Received" : "🛒 Orders Placed";
+
+async function loadOrders() {
+    if (!token) {
+        container.innerHTML = "<p style='text-align:center;color:red;'>Please log in to view orders.</p>";
+        return;
+    }
+
+    try {
+        const res = await fetch(apiEndpoint, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Failed to fetch orders");
+        const orders = await res.json();
+
+        container.innerHTML = "";
+        if (!orders.length) {
+            container.innerHTML = "<p style='text-align:center;'>No orders yet.</p>";
+            return;
+        }
+
+        orders.forEach(order => {
+            const type = order.itemType === 'product' ? 'Product Order' : 'Class Booking';
+            container.innerHTML += `
+                <div class="card">
+                    <h3>${order.itemTitle || "Unnamed Item"} (${type})</h3>
+                    ${role === "seller" ? `<p><strong>Buyer:</strong> ${order.buyerName || "N/A"}</p>
+                                            <p><strong>Email:</strong> ${order.buyerEmail || "N/A"}</p>
+                                            <p><strong>Phone:</strong> ${order.buyerPhone || "N/A"}</p>
+                                            <p><strong>Address:</strong> ${order.buyerAddress || "N/A"}</p>` 
+                                        : `<p><strong>Seller ID:</strong> ${order.sellerId || "N/A"}</p>`}
+                    ${order.itemType === 'product' ? '<p>💰 Payment: Cash on Delivery</p>' : '<p>📅 Booking Confirmed</p>'}
+                </div>`;
+        });
+
+    } catch (err) {
+        container.innerHTML = `<p style='text-align:center;color:red;'>${err.message}</p>`;
+    }
+}
+
+loadOrders();
+</script>
+</body>
+</html>

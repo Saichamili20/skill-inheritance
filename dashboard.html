@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>SkillInheritance Dashboard</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f7f9fc; margin: 0; padding: 0; }
+.navbar { display: flex; background: #4a90e2; padding: 15px; justify-content: space-around; }
+.navbar a { color: white; text-decoration: none; font-weight: bold; padding: 10px 15px; border-radius: 5px; }
+.navbar a:hover { background: #357ABD; }
+</style>
+</head>
+<body>
+
+<div class="navbar" id="navbar">
+    <!-- Links will be injected here -->
+</div>
+
+<h2 style="text-align:center; margin-top: 50px;" id="welcomeMsg">Welcome to SkillInheritance Dashboard</h2>
+
+<script>
+// Get role and name from localStorage
+const role = localStorage.getItem("role");
+const name = localStorage.getItem("name");
+
+// Customize welcome message
+document.getElementById("welcomeMsg").innerText = `Welcome, ${name} (${role})!`;
+
+// Navbar container
+const navbar = document.getElementById("navbar");
+
+// Define links per role
+const links = {
+    buyer: [
+        { href: "home.html", text: "home" },
+        { href: "skills.html", text: "Explore" },
+         { href: "profile.html", text: "profile" },
+         { href: "orders.html", text: "orders placed" }
+
+    ],
+    seller: [
+        { href: "home.html", text: "home" },
+        { href: "sell.html", text: "Sell" },
+        { href: "teach.html", text: "Teach" },
+        { href: "order.html", text: "orders received" },
+         { href: "skills.html", text: "Explore" },
+         { href: "profile.html", text: "profile" }
+    ],
+    Teacher: [
+        { href: "teach.html", text: "Teach" },
+          { href: "order.html", text: "order" },
+             { href: "home.html", text: "home" }
+    ],
+    Admin: [
+        { href: "sell.html", text: "Sell" },
+        { href: "teach.html", text: "Teach" },
+        { href: "order.html", text: "order" },
+        { href: "skills.html", text: "Explore" }
+    ]
+};
+
+// Default to all links if role is missing
+const userLinks = links[role] || [
+    { href: "sell.html", text: "Sell" },
+    { href: "teach.html", text: "Teach" },
+    { href: "connect.html", text: "Connect" },
+    { href: "skills.html", text: "Explore" }
+];
+
+// Render links
+userLinks.forEach(link => {
+    const a = document.createElement("a");
+    a.href = link.href;
+    a.textContent = link.text;
+    navbar.appendChild(a);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup • SkillInheritance</title>
+  <style>
+    body {
+      margin: 0; display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; background: linear-gradient(135deg, #e1f5fe, #ffe0b2);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      width: 360px; background: #fff; padding: 2rem;
+      border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.12); text-align: center;
+    }
+    input, select {
+      width: 100%; padding: 11px 14px; margin: 0.55rem 0;
+      border-radius: 10px; border: 1px solid #ccc;
+    }
+    button {
+      width: 100%; padding: 12px; border: none; border-radius: 12px;
+      background: #26a69a; color: #fff; font-weight: 600; cursor: pointer;
+    }
+    button:hover { background: #00897b; }
+    .err { color: #d32f2f; min-height: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Create Account 🌱</h2>
+    <form id="signupForm">
+      <input id="name" placeholder="👤 Name" required />
+      <input id="email" type="email" placeholder="📧 Email" required />
+      <input id="password" type="password" placeholder="🔑 Password" required />
+      <input id="address" placeholder="🏠 Address" required />
+      <input id="phone" placeholder="📞 Phone" required />
+      <select id="role">
+        <option value="buyer">Buyer / Learner</option>
+        <option value="seller">Seller / Teacher</option>
+      </select>
+      <button>Sign Up</button>
+    </form>
+    <div class="err" id="msg"></div>
+  </div>
+  <script>
+    const API = "http://localhost:5000/api";
+    signupForm.onsubmit = async e => {
+      e.preventDefault(); msg.textContent = "";
+      try {
+        const r = await fetch(`${API}/signup`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            name: name.value, email: email.value, password: password.value,
+            role: role.value, address: address.value, phone: phone.value
+          })
+        });
+        const d = await r.json();
+        if (!r.ok) throw Error(d.message);
+        localStorage.setItem("token", d.token);
+        localStorage.setItem("role", d.role);
+        localStorage.setItem("name", d.name);
+        location.href = "dashboard.html";
+      } catch (err) {
+        msg.textContent = err.message;
+      }
+    };
+  </script>
+</body>
+</html>

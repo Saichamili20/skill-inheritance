@@ -1,0 +1,69 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login • SkillInheritance</title>
+<style>
+body {
+  background: #fff3e0; font-family: 'Segoe UI', sans-serif;
+  display: flex; justify-content: center; align-items: center; height: 100vh;
+}
+.card {
+  background: white; padding: 2rem; border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1); width: 320px;
+}
+input {
+  width: 100%; padding: 0.5rem; margin: 0.5rem 0;
+  border-radius: 8px; border: 1px solid #ccc;
+}
+button {
+  width: 100%; background: #fb8c00; color: white;
+  padding: 0.7rem; border: none; border-radius: 8px; margin-top: 1rem; cursor: pointer;
+}
+.link { text-align: center; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>🔐 Login</h2>
+  <input id="email" type="email" placeholder="📧 Email">
+  <input id="password" type="password" placeholder="🔑 Password">
+  <button onclick="login()">Continue</button>
+  <div class="link"><a href="signup.html">New user? Create Account</a></div>
+  <p id="msg" style="color:red"></p>
+</div>
+<script src="language.js"></script>
+
+<script>
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    document.getElementById("msg").innerText = data.message || data.error;
+    return;
+  }
+
+  // Store user info
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("role", data.role);
+  localStorage.setItem("name", data.name);
+  localStorage.setItem("email", data.email || "");
+  localStorage.setItem("address", data.address || "");
+  localStorage.setItem("phone", data.phone || "");
+
+  console.log("Logged in user role:", data.role);
+  window.location.href = "dashboard.html";
+}
+</script>
+</script>
+</body>
+</html>

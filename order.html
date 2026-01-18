@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders • SkillInheritance</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #e3f2fd;
+      padding: 2rem;
+    }
+    h2 {
+      text-align: center;
+      color: #00796b;
+    }
+    .card {
+      background: #fff;
+      padding: 1rem;
+      margin: 1rem auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+    }
+    .card h3 {
+      margin: 0;
+      color: #00695c;
+    }
+    .card p {
+      margin: 0.3rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>📦 Orders Received</h2>
+  <div id="ordersContainer"></div>
+
+  <script>
+    const token = localStorage.getItem("token");
+
+    async function loadOrders() {
+      const res = await fetch("/api/orders", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const orders = await res.json();
+
+      const container = document.getElementById("ordersContainer");
+      container.innerHTML = "";
+
+      if (!orders.length) {
+        container.innerHTML = "<p style='text-align:center;'>No orders yet.</p>";
+        return;
+      }
+
+      orders.forEach(order => {
+        container.innerHTML += `
+          <div class="card">
+            <h3>${order.title} (${order.type === 'class' ? 'Class Booking' : 'Product Order'})</h3>
+            <p><strong>Buyer:</strong> ${order.buyerName}</p>
+            <p><strong>Email:</strong> ${order.buyerEmail}</p>
+            <p><strong>Phone:</strong> ${order.buyerPhone}</p>
+            <p><strong>Address:</strong> ${order.buyerAddress}</p>
+          </div>
+        `;
+      });
+    }
+
+    loadOrders();
+  </script>
+</body>
+ 

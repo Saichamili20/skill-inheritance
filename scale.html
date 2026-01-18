@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scale • SkillInheritance</title>
+  <style>
+    body {
+      background: #f3e5f5;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+    form {
+      background: #ede7f6;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2>💼 Submit Pitch for Scaling</h2>
+  <form id="scaleForm">
+    <input type="text" id="title" placeholder="Pitch Title" required>
+    <textarea id="description" placeholder="Pitch Description" required></textarea>
+    <input type="number" id="funding" placeholder="Required Funding" required>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const token = localStorage.getItem("token");
+    const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+
+    document.getElementById("scaleForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        funding: document.getElementById("funding").value
+      };
+      const res = await fetch("http://localhost:5000/api/pitches", {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (!res.ok) alert(data.error);
+      else alert("Pitch submitted!");
+    });
+  </script>
+</body>
+</html>

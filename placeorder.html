@@ -1,0 +1,68 @@
+<!-- placeorder.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Order</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #e1f5fe; padding: 2rem; display: flex; flex-direction: column; align-items: center; }
+    .box { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 400px; width: 100%; }
+    input, button { width: 100%; padding: 0.6rem; margin: 0.6rem 0; border-radius: 8px; border: 1px solid #ccc; }
+    button { background: #00796b; color: white; border: none; cursor: pointer; }
+    button:hover { background: #004d40; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Confirm Your Details</h2>
+    <input id="name" placeholder="👤 Name" />
+    <input id="email" placeholder="📧 Email" />
+    <input id="phone" placeholder="📞 Phone" />
+    <input id="address" placeholder="🏠 Address" />
+    <button onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    document.getElementById("name").value = user.name;
+    document.getElementById("email").value = user.email;
+    document.getElementById("phone").value = user.phone || "";
+    document.getElementById("address").value = user.address || "";
+
+    async function placeOrder() {
+      const queryParams = new URLSearchParams(location.search);
+      const itemId = queryParams.get("id");
+      const itemType = queryParams.get("type");
+      const itemTitle = queryParams.get("title");
+
+      const orderDetails = {
+        itemId,
+        itemType,
+        itemTitle,
+        buyerName: document.getElementById("name").value,
+        buyerEmail: document.getElementById("email").value,
+        buyerPhone: document.getElementById("phone").value,
+        buyerAddress: document.getElementById("address").value
+      };
+
+      const res = await fetch("/api/placeorder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(orderDetails)
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("✅ Order placed successfully!");
+        location.href = "home.html";
+      } else {
+        alert(data.error);
+      }
+    }
+  </script>
+</body>
+</html>

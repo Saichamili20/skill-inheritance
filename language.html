@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillInheritance • Home</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff8e1;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: #ffb74d;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 {
+    margin: 0;
+    color: white;
+  }
+  .lang-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    background: white;
+  }
+  #langOptions {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  #langOptions button {
+    padding: 8px 12px;
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  main {
+    padding: 2rem;
+    text-align: center;
+  }
+  main h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  main p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .btns button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background: #fb8c00;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 data-translate="title">🌾 SkillInheritance</h1>
+  <button class="lang-btn" id="langBtn">Language 🌐</button>
+</header>
+
+<!-- Language Popup -->
+<div id="langOptions">
+  <button class="chooseLang" data-lang="hi">हिन्दी</button>
+  <button class="chooseLang" data-lang="te">తెలుగు</button>
+</div>
+
+<main>
+  <h2 data-translate="heading">Welcome to SkillInheritance</h2>
+  <p data-translate="description">Here you can share and sell your family skills.</p>
+  <div class="btns">
+    <button data-translate="buttonSell" onclick="location.href='sell.html'">Sell</button>
+    <button data-translate="buttonTeach" onclick="location.href='teach.html'">Teach</button>
+  </div>
+</main>
+
+<script>
+// Translation data
+const translations = {
+  hi: {
+    title: "🌾 स्किल इनहेरिटेंस",
+    heading: "हमारे कौशल को अपनाएँ",
+    description: "यहाँ आप अपने पारिवारिक कौशल को साझा और बेच सकते हैं",
+    buttonSell: "बेचना",
+    buttonTeach: "सीखाना"
+  },
+  te: {
+    title: "🌾 స్కిల్ ఇన్హెరిటెన్స్",
+    heading: "మన నైపుణ్యాలను అనుసరించండి",
+    description: "ఇక్కడ మీరు మీ కుటుంబ నైపుణ్యాలను షేర్ చేసి అమ్మవచ్చు",
+    buttonSell: "అమ్మడం",
+    buttonTeach: "సమర్పించడం"
+  }
+};
+
+// Elements
+const langBtn = document.getElementById("langBtn");
+const langOptions = document.getElementById("langOptions");
+
+// Toggle language popup
+langBtn.addEventListener("click", () => {
+  langOptions.style.display = langOptions.style.display === "none" ? "block" : "none";
+});
+
+// Handle language selection
+document.querySelectorAll(".chooseLang").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const lang = btn.getAttribute("data-lang");
+    localStorage.setItem("lang", lang); // save choice
+    applyLanguage(lang);
+    langOptions.style.display = "none"; // hide popup
+  });
+});
+
+// Apply language to all elements with data-translate
+function applyLanguage(lang) {
+  const t = translations[lang];
+  if (!t) return;
+
+  document.querySelectorAll("[data-translate]").forEach(el => {
+    const key = el.getAttribute("data-translate");
+    if (t[key]) el.innerText = t[key];
+  });
+}
+
+// Load saved language on page load
+window.addEventListener("load", () => {
+  const lang = localStorage.getItem("lang");
+  if (lang) applyLanguage(lang);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sell • SkillInheritance</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top left, #fce4ec, #f3e5f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 { color: #6a1b9a; text-align: center; }
+    input, textarea {
+      width: 100%; padding: 10px; margin: 10px 0;
+      border-radius: 8px; border: 1px solid #ccc;
+    }
+    button {
+      background: #ab47bc; color: white;
+      border: none; padding: 10px; width: 100%;
+      border-radius: 10px; font-weight: bold;
+    }
+    button:hover { background: #8e24aa; }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>📸 Upload Product</h2>
+    <form id="productForm">
+      <input name="title" placeholder="Product Title" required />
+      <input name="price" type="number" placeholder="Price" required />
+      <textarea name="story" placeholder="Story behind the product"></textarea>
+      <input type="file" name="image" accept="image/*" required />
+      <button>Upload</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("productForm");
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        body: data
+      });
+      const out = await res.json();
+      if (res.ok) alert("Product uploaded successfully!");
+      else alert(out.error);
+    };
+  </script>
+</body>
+</html>
+

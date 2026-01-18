@@ -60,7 +60,7 @@ SkillInheritance/
 ├─ package.json       # Node.js project metadata
 └─ README.md          # Project documentation
 
-##✅ Key Functionalities
+✅ Key Functionalities
 
 Dynamic Order Management
 
@@ -83,7 +83,7 @@ Works on desktop and mobile
 Clear headings, cards, and color-coded sections
 
 
-##💡 Future Enhancements
+💡 Future Enhancements
 
 Integrate real backend with database (MongoDB / SQL)
 

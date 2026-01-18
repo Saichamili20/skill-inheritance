@@ -55,31 +55,6 @@ The app is accessible and visually appealing, with a responsive design for both 
 - **Hosting (Optional):** GitHub Pages for frontend demo  
 
 ---
-💻 How to Run Locally
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/Saichamili20/skill-inheritance.git
-Navigate to the project folder
-
-cd skill-inheritance
-Install dependencies (if any)
-
-npm install
-Only needed if you use Node.js packages or APIs.
-
-Start a local server (for HTML/JS frontend)
-
-Using Python:
-
-python -m http.server 8000
-Or using VS Code Live Server
-
-Open in a browser
-
-http://localhost:5000
-
-
 ⚙ Folder Structure
 SkillInheritance/
 
@@ -127,3 +102,28 @@ Add real-time messaging between users
 Include search and filter features for products/classes
 
 Add profile pages for sellers and buyers
+💻 How to Run Locally
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Saichamili20/skill-inheritance.git
+Navigate to the project folder
+
+cd skill-inheritance
+Install dependencies (if any)
+
+npm install
+Only needed if you use Node.js packages or APIs.
+
+Start a local server (for HTML/JS frontend)
+
+Using Python:
+
+python -m http.server 8000
+Or using VS Code Live Server
+
+Open in a browser
+
+http://localhost:5000
+
+

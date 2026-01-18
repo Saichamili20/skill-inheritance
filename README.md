@@ -55,7 +55,7 @@ The app is accessible and visually appealing, with a responsive design for both 
 - **Hosting (Optional):** GitHub Pages for frontend demo  
 
 ---
-⚙ Folder Structure
+## ⚙ Folder Structure
 SkillInheritance/
 
 - `index.html` – Main landing page  
@@ -68,7 +68,7 @@ SkillInheritance/
 - `backend.js` – Connects all the pages and contains backend logic
 - `README.md` – Project documentation  and more
 
-✅ Key Functionalities
+## ✅ Key Functionalities
 
 Dynamic Order Management
 
@@ -91,7 +91,7 @@ Works on desktop and mobile
 Clear headings, cards, and color-coded sections
 
 
-💡 Future Enhancements
+## 💡 Future Enhancements
 
 Integrate real backend with database (MongoDB / SQL)
 
@@ -102,7 +102,7 @@ Add real-time messaging between users
 Include search and filter features for products/classes
 
 Add profile pages for sellers and buyers
-💻 How to Run Locally
+## 💻 How to Run Locally
 
 1. **Clone the repository**
 ```bash

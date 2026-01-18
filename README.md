@@ -31,34 +31,67 @@ The app is accessible and visually appealing, with a responsive design for both 
    - Users can explore the skills any place of there choice.
    - Currently only three states information is added.
 
-5. **ORDERS**
+4. **ORDERS**
    - Sellers can view orders received from buyers.
    - Buyers can track their orders and class bookings.
    - Displays detailed information: buyer/seller info, address, phone, item type, and payment/booking status.
+5.**Backend & Database**
+- **MongoDB** stores all dynamic data:  
+  - Users and roles (buyer, seller)  
+  - Products and services  
+  - Orders and bookings  
+- **Express API** serves data to the frontend based on user role  
+- **Authentication** with tokens stored in `localStorage` for secured access
+
 
 ---
 
 ## 🛠 Technology Stack
 
-- **Frontend:** HTML, CSS, JavaScript  
+- **Frontend:** HTML, CSS(internal), JavaScript  
 - **Backend API:** Node.js / Express (for orders and authentication) *(if implemented locally)*  
-- **Data storage:** Local JSON or mock API for demonstration  
+- **Data storage:** Local JSON or mock API for demonstration 
 - **Responsive Design:** Works on mobile and desktop  
 - **Hosting (Optional):** GitHub Pages for frontend demo  
 
 ---
+💻 How to Run Locally
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Saichamili20/skill-inheritance.git
+Navigate to the project folder
+
+cd skill-inheritance
+Install dependencies (if any)
+
+npm install
+Only needed if you use Node.js packages or APIs.
+
+Start a local server (for HTML/JS frontend)
+
+Using Python:
+
+python -m http.server 8000
+Or using VS Code Live Server
+
+Open in a browser
+
+http://localhost:5000
 
 
 ⚙ Folder Structure
 SkillInheritance/
-├─ index.html         # Main landing page
-├─ orders.html        # Orders page
-├─ teach.html         # Teaching module
-├─ backend.js          # Connected all the pages
-├─ images/       # Images for README
-├─ node_modules/      # (Optional) Dependencies folder
-├─ package.json       # Node.js project metadata
-└─ README.md          # Project documentation
+
+- `index.html` – Main landing page  
+- `orders.html` – Orders page  
+- `teach.html` – Teach module  
+-`skills.html`- Includes states to explore skills(added only 3 temporarily)
+-`login.html`- Login page
+-`signup`- Sign up page
+- `CSS (internal)` – Styling is included directly within HTML files using <style> blocks
+- `backend.js` – Connects all the pages and contains backend logic
+- `README.md` – Project documentation  and more
 
 ✅ Key Functionalities
 

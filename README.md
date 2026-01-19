@@ -27,6 +27,7 @@ The app is accessible and visually appealing, with a responsive design for both 
 2. **TEACH**
    - Users can offer online or offline classes to teach family skills.
    - Booking and schedule management integrated.
+     
 3.**Explore**
    - Users can explore the skills any place of there choice.
    - Currently only three states information is added.

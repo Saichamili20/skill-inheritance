@@ -28,7 +28,7 @@ The app is accessible and visually appealing, with a responsive design for both 
    - Users can offer online or offline classes to teach family skills.
    - Booking and schedule management integrated.
      
-3.**Explore**
+3.**EXPLORE**
    - Users can explore the skills any place of there choice.
    - Currently only three states information is added.
 
@@ -36,7 +36,9 @@ The app is accessible and visually appealing, with a responsive design for both 
    - Sellers can view orders received from buyers.
    - Buyers can track their orders and class bookings.
    - Displays detailed information: buyer/seller info, address, phone, item type, and payment/booking status.
+     
 5.**Backend & Database**
+
 - **MongoDB** stores all dynamic data:  
   - Users and roles (buyer, seller)  
   - Products and services  
